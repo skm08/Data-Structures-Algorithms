@@ -5,7 +5,7 @@ class Solution:
             if arr[i] % 2 != 0:
                 counter += 1
                 if counter == 3:
-                    return True
+                    break
             else: 
                 counter = 0
-        return False
+        return True if counter == 3 else False
