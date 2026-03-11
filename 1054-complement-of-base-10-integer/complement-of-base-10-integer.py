@@ -1,0 +1,1 @@
+Solution = lambda: namedtuple('Solution', ["bitwiseComplement"])(lambda n: int("".join('1' if e == '0' else '0' for e in bin(n)[2:]), 2))
