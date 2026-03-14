@@ -1,33 +1,19 @@
-from collections import deque
-
+# Added using AI
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
-        size_n = []
-        q = deque()
-
-        # Push all start points
-        q.append("a")
-        q.append("b")
-        q.append("c")
-
-        while q:
-            curr = q.popleft()
-            if len(curr) == n:
-                size_n.append(curr)
-                continue
-
-            # Build next 2 strings
-            last_char = curr[-1]
-            if last_char == 'a':
-                q.append(curr + 'b')
-                q.append(curr + 'c')
-            elif last_char == 'b':
-                q.append(curr + 'a')
-                q.append(curr + 'c')
-            else:
-                q.append(curr + 'a')
-                q.append(curr + 'b')
-
-        if len(size_n) < k:
+        sz = 2 ** (n - 1)
+        if 3 * sz < k:
             return ""
-        return size_n[k - 1]
+
+        opts = ["bc", "ac", "ab"]
+        if k <= sz:         res = "a"
+        elif k <= 2 * sz:   res = "b"; k -= sz
+        else:               res = "c"; k -= 2 * sz
+
+        for i in range(1, n):
+            sz //= 2
+            ch = opts[ord(res[-1]) - ord('a')]
+            if k <= sz: res += ch[0]
+            else:       res += ch[1]; k -= sz
+
+        return res
