@@ -1,14 +1,13 @@
 class Solution:
     def numberOfSubstrings(self, s: str) -> int:
-        n = len(s)
-        subarrays = 0
-        freq = [0, 0, 0]  # Frequency array for 'a', 'b', 'c'
-
-        left = 0
-        for right in range(n):  # Expand window to the right
-            freq[ord(s[right]) - ord('a')] += 1  # Increment frequency of current character
-            while all(f > 0 for f in freq):  # Valid window found
-                subarrays += n - right  # All subarrays starting at left and ending at right or beyond are valid
-                freq[ord(s[left]) - ord('a')] -= 1  # Slide window from left
-                left += 1
-        return subarrays
+        last_seen = {'a': -1, 'b': -1, 'c': -1}
+        count = 0
+        
+        for i, char in enumerate(s):
+            last_seen[char] = i
+            
+            if last_seen['a'] != -1 and last_seen['b'] != -1 and last_seen['c'] != -1:
+                min_idx = min(last_seen['a'], last_seen['b'], last_seen['c'])
+                count += min_idx + 1
+                
+        return count
