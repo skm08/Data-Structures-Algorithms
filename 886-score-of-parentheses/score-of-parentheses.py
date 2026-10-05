@@ -1,6 +1,6 @@
 class Solution:
-    def scoreOfParentheses(self, s: str) -> int: # s = ""
-        st = [0] # [0,]
+    def scoreOfParentheses(self, s: str) -> int: # s = "(())"
+        st = [0] # []
 
         for c in s:
             if c == '(':
@@ -8,4 +8,5 @@ class Solution:
             else:
                 current = st.pop()
                 st[-1] += max(1, 2 * current)
-        return st[0]
+
+        return st[-1]
